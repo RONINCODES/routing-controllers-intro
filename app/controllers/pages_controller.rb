@@ -10,7 +10,9 @@ class PagesController < ApplicationController
   end
 
   def contest
-    @header = "This is the contest page"
+    # @header = "This is the contest page"
+    flash[:notice] = "Sorry, the contest has ended"
+    redirect_to "/welcome"
   end
 
   def kitten
@@ -23,5 +25,25 @@ class PagesController < ApplicationController
     requested_size = params[:size]
     @kitten_url = "http://lorempixel.com/#{requested_size}/#{requested_size}/cats"
   end
+
+  def secrets
+    case (params[:magic_word])
+    when "MELLON"
+      render :secrets
+    else
+      flash[:notice] = "Speak FRIEND and all will be revealed!"
+      redirect_to "/welcome"
+    end
+  end
+
+  #   if params.secrets(:magic_word) == "MELLON"
+  #     render :secrets
+  #   else
+  #     flash[:notice] = "Speak FRIEND and all will be revealed!"
+  #     redirect_to "/welcome"
+  #   end
+  # end
+
+
 
 end
